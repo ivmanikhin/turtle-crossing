@@ -6,7 +6,7 @@ from scoreboard import Scoreboard
 score = 0
 screen = Screen()
 screen.setup(width=800, height=600)
-screen.bgcolor('grey')
+screen.bgcolor('dimgrey')
 screen.tracer(0)
 scoreboard = Scoreboard(screen, score)
 car_man = CarManager(screen)
@@ -20,7 +20,7 @@ while game_is_on:
     sleep(0.025)
     car_man.some_car_run(score)
     game_is_on = car_man.all_cars_move(player)
-    if player.lane > len(car_man.lanes):
+    if player.lane > car_man.lane_num:
         player.start()
         score += 1
         scoreboard.update(score)

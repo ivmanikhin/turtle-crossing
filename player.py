@@ -11,11 +11,12 @@ class Player(Turtle):
         self.lanes = lanes
         self.lane = -1
         self.scr = scr
-        self.shape('turtle')
-        self.pencolor('black')
-        self.color('brown')
         self.penup()
+        self.shape('turtle')
+        self.color('brown')
+        self.draw_lanes()
         self.setheading(90)
+        self.pencolor('black')
         self.start()
 
     def step_forward(self):
@@ -28,5 +29,19 @@ class Player(Turtle):
             self.backward(30)
 
     def start(self):
-        self.sety(self.lanes[0] - 30)
+        self.sety(self.lanes[0] - 33)
         self.lane = -1
+
+    def draw_lanes(self):
+        self.setheading(0)
+        for lane in self.lanes:
+            self.setx(-int(self.scr.window_width() / 2))
+            self.sety(self.lanes[lane] - 15)
+            self.pencolor('white')
+            self.pensize(3)
+            while self.xcor() <= self.scr.window_width() / 2:
+                self.pendown()
+                self.forward(30)
+                self.penup()
+                self.forward(30)
+        self.setx(0)

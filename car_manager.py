@@ -20,9 +20,9 @@ class CarManager:
         self.car_born_countdown = 0
 
     def some_car_run(self, score):
-        if self.car_born_countdown == 0:
+        if self.car_born_countdown == 0 or len(self.cars) < 10:
             self.cars.append(Car(self.scr, score, self.lanes))
-            self.car_born_countdown = randint(1, 30)
+            self.car_born_countdown = randint(1, 20)
             print(len(self.cars))
         self.car_born_countdown -= 1
 
@@ -33,6 +33,7 @@ class CarManager:
             else:
                 car.make_step(self.cars)
                 if car.lane == player.lane and -30 <= car.xcor() - player.xcor() <= 30:
+                    self.scr.update()
                     return False
         self.scr.update()
         return True
@@ -53,7 +54,7 @@ class Car(Turtle):
         self.scr = scr
         self.score = score
         self.shape('square')
-        self.shapesize(1, 2)
+        self.shapesize(0.8, 2)
         self.setheading(180)
         self.standby(lanes)
         self.run()
@@ -69,6 +70,7 @@ class Car(Turtle):
         self.setx(int(self.scr.window_width() / 2) + 20)
         self.sety(lanes[self.lane])
         self.color(choice(COLORS))
+        self.pencolor('black')
         self.step_size = 0
 
     def make_step(self, cars):
